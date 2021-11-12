@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Aplicaicion en tiempo Real</title>
+        <script src="static/raphael-2.1.4.min.js"></script>
+        <script src="static/justgage.js"></script>
+</head>
+
+<body>
+    <div id="gauge" class="200x160px"></div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-6 mx-auto mt-5">
+                <h1 id="app0">{{ text }}</h1>
+                <h1 id="app1">{{ text }}</h1>
+                <h1 id="app2">{{ text }}</h1>
+                <h1 id="app3">{{ text }}</h1>
+                <h1 id="app4">{{ text }}</h1>
+                <h1 id="app5">{{ text }}</h1>
+                <h1 id="app6">{{ text }}</h1>
+                <h1 id="app7">{{ text }}</h1>
+                <h1 id="app8">{{ text }}</h1>
+                <h1 id="app9">{{ text }}</h1>
+            </div>
+        </div>
+
+
+        <div id="main">
+                    <img src="{% static 'media/Led-Off.png' %}" id="Q00-image" width="50" height="50" title="Q0.0" alt="Q0.0">
+                    <img src="{% static 'media/Led-Off.png' %}" id="Q01-image" width="50" height="50" title="Q0.1" alt="Q0.1">
+                    <img src="{% static 'media/Led-Off.png' %}" id="Q02-image" width="50" height="50" title="Q0.2" alt="Q0.2">
+                    <img src="{% static 'media/Led-Off.png' %}" id="Q03-image" width="50" height="50" title="Q0.3" alt="Q0.3">
+                    <img src="{% static 'media/Led-Off.png' %}" id="Q04-image" width="50" height="50" title="Q0.4" alt="Q0.4">
+                    <img src="{% static 'media/Led-Off.png' %}" id="Q05-image" width="50" height="50" title="Q0.5" alt="Q0.5">
+                    <img src="{% static 'media/Led-Off.png' %}" id="Q06-image" width="50" height="50" title="Q0.6" alt="Q0.6">
+                    <img src="{% static 'media/Led-Off.png' %}" id="Q07-image" width="50" height="50" title="Q0.7" alt="Q0.7">
+                    <img src="{% static 'media/Led-Off.png' %}" id="Q08-image" width="50" height="50" title="Q0.8" alt="Q0.8">
+                    <img src="{% static 'media/Led-Off.png' %}" id="Q09-image" width="50" height="50" title="Q0.9" alt="Q0.9">
+        </div>
+
+
+
+    </div>
+
+
+    <script>
+        var z;
+        var k = new JustGage({
+            id: "gauge",
+            value: z,
+            min: 0,
+            max: 140,
+            title: "Presión\nPSI"
+            });
+
+        var socket = new WebSocket('ws://172.20.108.32:8000/ws/some_url/');
+
+        socket.onmessage = function(event) {
+            var data = JSON.parse(event.data);
+            document.querySelector('#app0').innerText = data.message[0];
+            document.querySelector('#app1').innerText = data.message[1];
+            document.querySelector('#app2').innerText = data.message[2];
+            document.querySelector('#app3').innerText = data.message[3];
+            document.querySelector('#app4').innerText = data.message[4];
+            document.querySelector('#app5').innerText = data.message[5];
+            document.querySelector('#app6').innerText = data.message[6];
+            document.querySelector('#app7').innerText = data.message[7];
+            document.querySelector('#app8').innerText = data.message[8];
+            document.querySelector('#app9').innerText = data.message[9];
+            var a = data.message[4];
+            var b = data.message[5];
+            var c = data.message[6];
+            var d = data.message[7];
+            var e = data.message[8];
+            var f = data.message[9];
+            var g = data.message[2];
+            var h = data.message[2];
+            var i = data.message[2];
+            var j = data.message[2];
+            z = data.message[0];
+            var temp = z
+            k.refresh(temp)
+
+            if (a == "1") {
+                setInterval(LedOn0());
+            } else if(a == "0"){
+                setInterval(LedOff0());
+            }
+            if (b == "1") {
+                setInterval(LedOn1());
+            } else if(b == "0"){
+                setInterval(LedOff1());
+            }
+
+            if (c == "1") {
+                setInterval(LedOn2());
+            } else if(c == "0"){
+                setInterval(LedOff2());
+            }
+
+            if (d == "1") {
+                setInterval(LedOn3());
+            } else if(d == "0"){
+                setInterval(LedOff3());
+            }
+
+            if (e == "1") {
+                setInterval(LedOn4());
+            } else if(e == "0"){
+                setInterval(LedOff4());
+            }
+
+            if (f == "1") {
+                setInterval(LedOn5());
+            } else if(f == "0"){
+                setInterval(LedOff5());
+            }
+
+            if (g == "1") {
+                setInterval(LedOn6());
+            } else if(g == "0"){
+                setInterval(LedOff6());
+            }
+
+            if (h == "1") {
+                setInterval(LedOn7());
+            } else if(h == "0"){
+                setInterval(LedOff7());
+            }
+
+            if (i == "1") {
+                setInterval(LedOn8());
+            } else if(i == "0"){
+                setInterval(LedOff8());
+            }
+
+            if (j == "1") {
+                setInterval(LedOn9());
+            } else if(j == "0"){
+                setInterval(LedOff9());
+            }
+        }
+
+    </script>
+
+    <script type="text/javascript">
+            function LedOff0(){
+                var image0 = document.getElementById("Q00-image")
+                image0.src = "{% static 'media/Led-Off.png' %}"
+            }
+            function LedOn0(){
+                var image0 = document.getElementById("Q00-image")
+                image0.src = "{% static 'media/Led-ON.png' %}"
+            }
+
+            function LedOff1(){
+                var image1 = document.getElementById("Q01-image")
+                image1.src = "{% static 'media/Led-Off.png' %}"
+            }
+            function LedOn1(){
+                var image1 = document.getElementById("Q01-image")
+                image1.src = "{% static 'media/Led-ON.png' %}"
+            }
+
+            function LedOff2(){
+                var image2 = document.getElementById("Q02-image")
+                image2.src = "{% static 'media/Led-Off.png' %}"
+            }
+            function LedOn2(){
+                var image2 = document.getElementById("Q02-image")
+                image2.src = "{% static 'media/Led-ON.png' %}"
+            }
+
+            function LedOff3(){
+                var image3 = document.getElementById("Q03-image")
+                image3.src = "{% static 'media/Led-Off.png' %}"
+            }
+            function LedOn3(){
+                var image3 = document.getElementById("Q03-image")
+                image3.src = "{% static 'media/Led-ON.png' %}"
+            }
+
+            function LedOff4(){
+                var image4 = document.getElementById("Q04-image")
+                image4.src = "{% static 'media/Led-Off.png' %}"
+            }
+            function LedOn4(){
+                var image4 = document.getElementById("Q04-image")
+                image4.src = "{% static 'media/Led-ON.png' %}"
+            }
+
+            function LedOff5(){
+                var image5 = document.getElementById("Q05-image")
+                image5.src = "{% static 'media/Led-Off.png' %}"
+            }
+            function LedOn5(){
+                var image5 = document.getElementById("Q05-image")
+                image5.src = "{% static 'media/Led-ON.png' %}"
+            }
+
+            function LedOff6(){
+                var image6 = document.getElementById("Q06-image")
+                image6.src = "{% static 'media/Led-Off.png' %}"
+            }
+            function LedOn6(){
+                var image6 = document.getElementById("Q06-image")
+                image6.src = "{% static 'media/Led-ON.png' %}"
+            }
+
+            function LedOff7(){
+                var image7 = document.getElementById("Q07-image")
+                image7.src = "{% static 'media/Led-Off.png' %}"
+            }
+            function LedOn7(){
+                var image7 = document.getElementById("Q07-image")
+                image7.src = "{% static 'media/Led-ON.png' %}"
+            }
+
+            function LedOff8(){
+                var image8 = document.getElementById("Q08-image")
+                image8.src = "{% static 'media/Led-Off.png' %}"
+            }
+            function LedOn8(){
+                var image8 = document.getElementById("Q08-image")
+                image8.src = "{% static 'media/Led-ON.png' %}"
+            }
+
+            function LedOff9(){
+                var image9 = document.getElementById("Q09-image")
+                image9.src = "{% static 'media/Led-Off.png' %}"
+            }
+            function LedOn9(){
+                var image9 = document.getElementById("Q09-image")
+                image9.src = "{% static 'media/Led-ON.png' %}"
+            }
+        </script>
+
+</body>
+</html>
