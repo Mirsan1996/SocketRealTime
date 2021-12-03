@@ -1,6 +1,4 @@
 from django.shortcuts import render
-from multiprocessing import Process
-from django.http import HttpResponse
 from threading import Thread
 # Create your views here.
 
@@ -90,4 +88,4 @@ def index(request):
     for thread in threads:
         thread.start()
 
-    return render(request, 'index.html', context={'text':'UwU'})
+    return render(request, 'index.html', context={'text':'UwUntu'})

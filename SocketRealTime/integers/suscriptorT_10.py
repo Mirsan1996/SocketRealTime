@@ -1,11 +1,14 @@
 import mysql.connector
 import paho.mqtt.client as mqttClient
+from integers.credenciales import usermysql, usermqtt
+
 mydb = mysql.connector.connect(
-  host='172.20.108.32',
-  user='Miranda',
-  password='SqlAdmin',
-  database='iot2040'
+  host=usermysql[0],
+  user=usermysql[1],
+  password=usermysql[2],
+  database=usermysql[3]
 )
+
 def on_connect(client, userdata, flags, rc):
   if rc == 0:
     print('Connected to broker_10')
@@ -17,7 +20,7 @@ def on_message(client, userdata, message):
     mydb.cursor().execute('INSERT INTO database_texto (texto) VALUE (%(message.payload)s)', {'message.payload':message.payload})
     mydb.commit()
 Connected = False
-broker_address = '172.20.108.32'
+broker_address = usermqtt
 port = 1883  
 user = 'chavito_'+str(10)  
 password = '643092' 

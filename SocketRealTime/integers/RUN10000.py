@@ -1,5 +1,5 @@
 from threading import Thread
-print("Funciona")
+
 def client_0():
     import integers.suscriptorN_0
 def client_1():
@@ -40,6 +40,7 @@ def client_18():
     import integers.suscriptorT_18
 def client_19():
     import integers.suscriptorT_19
+
 if __name__=='__main__':
     threads = []
     threads.append(Thread(target=client_0))
